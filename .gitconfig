@@ -12,3 +12,6 @@
 	path = 
 [difftool]
 	prompt = false
+[mergetool "nvimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
