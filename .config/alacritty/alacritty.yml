@@ -11,7 +11,16 @@ window:
   # Startup Mode (changes require restart)
   startup_mode: Maximized
 
-# Sample Font configuration for font: Menlo.
+scrolling:
+  # maximum number of lines in the scrollback buffer. Specifying '0' will
+  # disable scrolling.
+  history: 10000
+
+  # Number of lines the viewport will move for every line scrolled when
+  # scrollback is enabled (history > 0).
+  multiplier: 3
+
+    # Sample Font configuration for font: Menlo.
 # Feel free to use different font configuration family & face for each sections
 font:
   # Normal font face - Also used to draw glyphs on tmux & VIM
