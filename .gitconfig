@@ -5,3 +5,10 @@
 	email = jim_chien_br@hotmail.com
 [alias]
 	cleanup = "!git branch --merged | egrep -v '(^\\*|master|main|dev)' | xargs git branch -d"
+[diff]
+  tool = nvimdiff
+[difftool "nvimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+	path = 
+[difftool]
+	prompt = false
