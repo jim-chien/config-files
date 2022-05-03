@@ -5,6 +5,10 @@ env:
   TERM: alacritty
 
 window:
+  padding:
+    x: 4
+    y: 0
+
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: true
 
