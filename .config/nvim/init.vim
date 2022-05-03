@@ -50,6 +50,11 @@ nnoremap <C-E> :sp<CR>:terminal<CR>
 tnoremap <esc> <C-\><C-N>
 
 nnoremap d "_d
+" Prevent x and the delete key from overriding what's in the clipboard.
+noremap x "_x
+noremap X "_x
+noremap <Del> "_x
+
 nmap qa :qa!<CR>
 nmap qq :q!<CR>
 nmap wq :wq <CR>
