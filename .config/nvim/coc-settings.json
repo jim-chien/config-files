@@ -27,5 +27,6 @@
     "typescriptreact",
     "html"
   ],
-  "codeLens.enable": false
+  "codeLens.enable": false,
+  "coc.preferences.useQuickfixForLocations": true
 }
