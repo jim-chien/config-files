@@ -55,10 +55,9 @@ noremap x "_x
 noremap X "_x
 noremap <Del> "_x
 
-nmap qa :qa!<CR>
-nmap qq :q!<CR>
 nmap wq :wq <CR>
 nmap <leader>s :w<CR>
+nmap <leader>w :w<CR>
 " Windows
 nmap sw <C-w>q
 " Split window
@@ -77,7 +76,6 @@ map sl <C-w>l
 
 " Tab
 nmap <leader>t :tabnew<CR>
-nmap <leader>w :tabclose<CR>
 
 " Indentation
 vmap < <gv
