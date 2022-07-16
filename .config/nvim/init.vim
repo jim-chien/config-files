@@ -1,4 +1,11 @@
-runtime ./plug.vim
+if(!exists('g:vscode'))
+  runtime ./plug.vim
+" Theming
+  colorscheme palenight
+  set background=dark
+else
+  set noloadplugins
+endif
 let g:mapleader=';'
 set encoding=utf8
 set clipboard=unnamedplus
@@ -26,9 +33,6 @@ set listchars=tab:›\ ,space:·
 set path+=**
 set wildmode=list:longest,list:full
 set wildignore+=*node_modules/,*coverage/,*.o,*.obj,.git,*.rbc,*.pyc,__pycache__,*/tmp/*,*.so,*.swp,*.zip,*.db,*.sqlite,.DS_Store
-" Theming
-colorscheme palenight
-set background=dark
 " Use terminal background
 highlight Normal guibg=none guifg=none
 
@@ -91,3 +95,10 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " Copy relative path of the current Buffer
 nmap <leader>cp :let @*=expand("%")<CR>
+
+if(!exists('g:vscode'))
+  noremap <Up> <NOP>
+  noremap <Down> <NOP>
+  noremap <Left> <NOP>
+  noremap <Right> <NOP>
+endif
