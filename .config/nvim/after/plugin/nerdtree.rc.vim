@@ -42,4 +42,6 @@ function! ToggleNerdTree()
   NERDTreeToggle
   set eventignore=
 endfunction
+
 nmap <C-b> :call ToggleNerdTree()<CR>
+nmap <Tab> :Bookmark<CR>
