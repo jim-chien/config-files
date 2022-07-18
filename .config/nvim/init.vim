@@ -53,8 +53,10 @@ nnoremap <C-E> :sp<CR>:terminal<CR>
 
 tnoremap <esc> <C-\><C-N>
 
+" Prevent delete from overriding what's in the clipboard
 nnoremap d "_d
 vnoremap d "_d
+
 " Prevent x and the delete key from overriding what's in the clipboard.
 noremap x "_x
 noremap X "_x
@@ -62,6 +64,9 @@ noremap <Del> "_x
 vnoremap x "_x
 vnoremap X "_x
 vnoremap <Del> "_x
+
+" Prevent pasting in visual from overriding what's in the clipboard
+xnoremap p pgvy
 
 nmap wq :wq <CR>
 nmap <leader>s :w<CR>
