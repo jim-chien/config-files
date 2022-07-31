@@ -44,4 +44,4 @@ function! ToggleNerdTree()
 endfunction
 
 nmap <C-b> :call ToggleNerdTree()<CR>
-nmap <Tab> :Bookmark<CR>
+nmap <leader><Tab> :Bookmark<CR>
