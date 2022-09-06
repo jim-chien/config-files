@@ -10,6 +10,7 @@ let g:mapleader=';'
 set encoding=utf8
 set clipboard=unnamedplus
 set completeopt=noinsert,menuone,noselect
+set foldmethod=manual
 set cursorline
 set mouse=a
 set number
