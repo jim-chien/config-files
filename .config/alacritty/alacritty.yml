@@ -93,33 +93,73 @@ mouse:
 
 key_bindings:
   - { key: Space, mods: Control, chars: "\x00" }
+  - { key: Left,     mods: Alt,     chars: "\x1bb"                       } # Skip word left
+  - { key: Right,    mods: Alt,     chars: "\x1bf"                       } # Skip word right
+  - { key: Back,     mods: Command, chars: "\x15"                        } # Delete line
+  - { key: Back,     mods: Alt,     chars: "\x1b\x7f"                    } # Delete word
 
-# Colors (Andromeda)
-colors:
-  bright:
-    black: '#666666'
-    blue: '#2472c8'
-    cyan: '#0fa8cd'
-    green: '#05bc79'
-    magenta: '#bc3fbc'
-    red: '#cd3131'
-    white: '#e5e5e5'
-    yellow: '#e5e512'
-  cursor:
-    cursor: '#f8f8f0'
-    text: '#cfcfc2'
-  normal:
-    black: '#000000'
-    blue: '#2472c8'
-    cyan: '#0fa8cd'
-    green: '#05bc79'
-    magenta: '#bc3fbc'
-    red: '#cd3131'
-    white: '#e5e5e5'
-    yellow: '#e5e512'
-  primary:
-    background: '#262a33'
-    foreground: '#e5e5e5'
-  selection:
-    background: '#5a5c62'
-    text: '#ece7e7'
+schemes:
+  # Colors (Andromeda)
+  andromeda_dark: &dark
+    bright:
+      black: '#666666'
+      blue: '#2472c8'
+      cyan: '#0fa8cd'
+      green: '#05bc79'
+      magenta: '#bc3fbc'
+      red: '#cd3131'
+      white: '#e5e5e5'
+      yellow: '#e5e512'
+    cursor:
+      cursor: '#f8f8f0'
+      text: '#cfcfc2'
+    normal:
+      black: '#000000'
+      blue: '#2472c8'
+      cyan: '#0fa8cd'
+      green: '#05bc79'
+      magenta: '#bc3fbc'
+      red: '#cd3131'
+      white: '#e5e5e5'
+      yellow: '#e5e512'
+    primary:
+      background: '#262a33'
+      foreground: '#e5e5e5'
+    selection:
+      background: '#5a5c62'
+      text: '#ece7e7'
+
+  # Colors (Solarized Light)
+  solarized_light: &light
+    primary:
+      background: '#fdf6e3' # base3
+      foreground: '#657b83' # base00
+
+    # Cursor colors
+    cursor:
+      text:   '#fdf6e3' # base3
+      cursor: '#657b83' # base00
+
+    # Normal colors
+    normal:
+      black:   '#073642' # base02
+      red:     '#dc322f' # red
+      green:   '#859900' # green
+      yellow:  '#b58900' # yellow
+      blue:    '#268bd2' # blue
+      magenta: '#d33682' # magenta
+      cyan:    '#2aa198' # cyan
+      white:   '#eee8d5' # base2
+
+    # Bright colors
+    bright:
+      black:   '#002b36' # base03
+      red:     '#cb4b16' # orange
+      green:   '#586e75' # base01
+      yellow:  '#657b83' # base00
+      blue:    '#839496' # base0
+      magenta: '#6c71c4' # violet
+      cyan:    '#93a1a1' # base1
+      white:   '#fdf6e3' # base3
+
+colors: *dark
