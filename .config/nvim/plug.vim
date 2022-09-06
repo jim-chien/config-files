@@ -4,10 +4,10 @@ call plug#begin("~/.vim/plugged")
     Plug 'vim-airline/vim-airline'
     Plug 'haya14busa/is.vim'
     Plug 'drewtempelmeyer/palenight.vim'
+    Plug 'overcache/NeoSolarized'
 
     " Utilities
     Plug 'sheerun/vim-polyglot'
-    Plug 'jiangmiao/auto-pairs'
     Plug 'ap/vim-css-color'
     Plug 'preservim/nerdtree'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
