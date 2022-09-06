@@ -3,10 +3,13 @@ command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 
 " use <c-space>for trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
-" Use <Tab> to navigate the completion list
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 
-" Use `[g` and `]g` to navigate diagnostics
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
