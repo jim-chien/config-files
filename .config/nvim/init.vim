@@ -120,3 +120,19 @@ vnoremap <silent> # :<C-U>
   \gvy?<C-R><C-R>=substitute(
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
+
+function! ChangeTheme(theme, optional = a:theme)
+  if a:theme=="light"
+    " colorscheme solarized
+    colorscheme NeoSolarized
+    set background=light
+    echom "Light theme selected!"
+  else
+    colorscheme palenight
+    set background=dark
+    echom "Dark theme selected!"
+  endif
+endfunction
+
+nmap <leader>ctl :call ChangeTheme("light")<CR>
+nmap <leader>ctd :call ChangeTheme("dark")<CR>
