@@ -126,10 +126,12 @@ function! ChangeTheme(theme, optional = a:theme)
     " colorscheme solarized
     colorscheme NeoSolarized
     set background=light
+    highlight Normal guibg=none guifg=none
     echom "Light theme selected!"
   else
     colorscheme palenight
     set background=dark
+    highlight Normal guibg=none guifg=none
     echom "Dark theme selected!"
   endif
 endfunction
