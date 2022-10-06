@@ -97,6 +97,7 @@ key_bindings:
   - { key: Right,    mods: Alt,     chars: "\x1bf"                       } # Skip word right
   - { key: Back,     mods: Command, chars: "\x15"                        } # Delete line
   - { key: Back,     mods: Alt,     chars: "\x1b\x7f"                    } # Delete word
+  - { key: F,        mods: Command|Control, action: ToggleFullscreen     }
 
 schemes:
   # Colors (Andromeda)
