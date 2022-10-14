@@ -9,6 +9,12 @@ set signcolumn=yes
 " Language server stuff
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 
+" Use <tab> for jump to next placeholder
+inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+
+" Use <s-tab> for jump to previous placeholder
+inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+
 " use <c-space>for trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
 
