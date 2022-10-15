@@ -18,6 +18,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'neoclide/coc.nvim',  {'branch': 'master', 'do': 'yarn install'}
     Plug 'plasticboy/vim-markdown'
     Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+    Plug 'honza/vim-snippets'
 
     " Git
     Plug 'airblade/vim-gitgutter'
