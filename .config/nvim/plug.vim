@@ -4,6 +4,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'vim-airline/vim-airline'
     Plug 'haya14busa/is.vim'
     Plug 'drewtempelmeyer/palenight.vim'
+    Plug 'vim-airline/vim-airline-themes'
     Plug 'overcache/NeoSolarized'
 
     " Utilities
@@ -17,7 +18,6 @@ call plug#begin("~/.vim/plugged")
 
     " Completion / linters / formatters
     Plug 'neoclide/coc.nvim',  {'branch': 'master', 'do': 'yarn install'}
-    Plug 'plasticboy/vim-markdown'
     Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
     Plug 'honza/vim-snippets'
 
