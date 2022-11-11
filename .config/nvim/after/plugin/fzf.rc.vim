@@ -19,6 +19,6 @@ command! -bang -nargs=* Rg
   \   fzf#vim#with_preview(), <bang>0)
 
 " Map
-nmap <leader>ff :Files<CR>
-nmap <C-p> :FZF<CR>
+nmap <leader>ff :FZF<CR>
+nmap <C-p> :Files<CR>
 nmap <C-f> :Rg<CR>
