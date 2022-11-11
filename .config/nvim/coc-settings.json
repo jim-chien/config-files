@@ -29,5 +29,6 @@
   ],
   "codeLens.enable": false,
   "coc.preferences.useQuickfixForLocations": true,
-  "snippets.userSnippetsDirectory": "~/.config/nvim/snips"
+  "snippets.userSnippetsDirectory": "~/.config/nvim/snips",
+  "snippets.excludePatterns": ["**/*jquery.snippets"]
 }
