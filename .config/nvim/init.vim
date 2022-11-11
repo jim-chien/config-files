@@ -126,11 +126,13 @@ function! ChangeTheme(theme, optional = a:theme)
     " colorscheme solarized
     colorscheme NeoSolarized
     set background=light
+    :AirlineTheme solarized
     highlight Normal guibg=none guifg=none
     echom "Light theme selected!"
   else
     colorscheme palenight
     set background=dark
+    :AirlineTheme palenight
     highlight Normal guibg=none guifg=none
     echom "Dark theme selected!"
   endif
