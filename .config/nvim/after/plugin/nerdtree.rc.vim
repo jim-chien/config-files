@@ -6,8 +6,11 @@ let NERDTreeShowHidden=1
 let g:webdevicons_enable_nerdtree = 0
 let g:NERDTreeChDirMode=2
 let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '.git', '.DS_Store']
-let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeAutoDeleteBuffer = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeDirArrows = 1
 
 " Open the existing NERDTree on each new tab.
 autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
