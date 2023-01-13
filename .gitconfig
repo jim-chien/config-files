@@ -7,11 +7,15 @@
 	cleanup = "!git branch --merged | egrep -v '(^\\*|master|main|dev)' | xargs git branch -d"
 [diff]
   tool = nvimdiff
-[difftool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
-	path = 
 [difftool]
 	prompt = false
+[difftool "nvimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+[merge]
+	tool = nvimdiff
+	conflictstyle = diff3
+[mergetool]
+	keepBackup = false
+	prompt = false
 [mergetool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+	cmd = nvim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
