@@ -17,6 +17,7 @@
   "python.formatting.provider": "black",
   "python.linting.pylintEnabled": true,
   "python.formatting.blackArgs": ["-S"],
+  "python.pythonPath": "python3",
   "prettier.singleQuote": true,
   "javascript.autoClosingTags": true,
   "typescript.autoClosingTags": true,
@@ -30,5 +31,8 @@
   "codeLens.enable": false,
   "coc.preferences.useQuickfixForLocations": true,
   "snippets.userSnippetsDirectory": "~/.config/nvim/snips",
-  "snippets.excludePatterns": ["**/*jquery.snippets"]
+  "snippets.excludePatterns": [
+    "**/*jquery.snippets"
+  ],
+  "snippets.ultisnips.pythonPrompt": false
 }
