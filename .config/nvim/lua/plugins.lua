@@ -6,6 +6,9 @@ end
 
 vim.cmd([[
   packadd packer.nvim
+]])
+
+vim.cmd([[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
@@ -19,6 +22,7 @@ packer.startup(function(use)
   use 'vim-airline/vim-airline'
   use 'haya14busa/is.vim'
   use 'drewtempelmeyer/palenight.vim'
+  use 'folke/tokyonight.nvim'
   use 'vim-airline/vim-airline-themes'
   use 'overcache/NeoSolarized'
   use 'tpope/vim-commentary'
