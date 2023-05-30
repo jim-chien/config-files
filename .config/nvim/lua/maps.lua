@@ -1,72 +1,78 @@
-nnoremap <C-e> :vsp<CR>:terminal<CR>
-nnoremap <C-E> :sp<CR>:terminal<CR>
+local opts = { noremap = true, silent = true }
 
-tnoremap <esc> <C-\><C-N>
+local term_opts = { silent = true }
+
+local keymap = vim.api.nvim_set_keymap
+
+keymap('t', '<esc>', '<C-\\><C-N>', opts)
 
 -- Prevent delete from overriding what's in the clipboard
-nnoremap d "_d
-vnoremap d "_d
+keymap('n', 'd', '"_d', opts)
+keymap('v', 'd', '"_d', opts)
 
 -- Prevent x and the delete key from overriding what's in the clipboard.
-noremap x "_x
-noremap X "_x
-noremap <Del> "_x
-vnoremap x "_x
-vnoremap X "_x
-vnoremap <Del> "_x
+keymap('n', 'x', '"_x', opts)
+keymap('n', 'X', '"_x', opts)
+keymap('n', '<Del>', '"_x', opts)
+keymap('v', 'x', '"_x', opts)
+keymap('v', 'X', '"_x', opts)
+keymap('v', '<Del>', '"_x', opts)
 
 -- Prevent pasting in visual from overriding what's in the clipboard
-xnoremap p pgvy
+keymap('x', 'p', 'pgvy', opts)
 
-nmap wq :wq <CR>
-nmap <leader>s :w<CR>
-nmap <leader>w :w<CR>
+keymap('n', 'wq', ':wq <CR>', opts)
+keymap('n', '<leader>s', ':w<CR>', opts)
+keymap('n', '<leader>w', ':w<CR>', opts)
 
 -- Windows
-nmap sw <C-w>q
+keymap('n', 'sw', '<C-w>q', opts)
 
 -- Split window
-nmap ss :split<Return><C-w>w
-nmap sv :vsplit<Return><C-w>w
+keymap('n', 'ss', ':split<Return><C-w>w', opts)
+keymap('n', 'sv', ':vsplit<Return><C-w>w', opts)
 
 -- Move window
-nmap <Space> <C-w>w
-map s<left> <C-w>h
-map s<up> <C-w>k
-map s<down> <C-w>j
-map s<right> <C-w>l
-map sh <C-w>h
-map sk <C-w>k
-map sj <C-w>j
-map sl <C-w>l
+keymap('n', '<Space>', '<C-w>w', opts)
+keymap('n', 's<left>', '<C-w>h', term_opts)
+keymap('n', 's<up>', '<C-w>k', term_opts)
+keymap('n', 's<down>', '<C-w>j', term_opts)
+keymap('n', 's<right>', '<C-w>l', term_opts)
+keymap('n', 'sh', '<C-w>h', term_opts)
+keymap('n', 'sk', '<C-w>k', term_opts)
+keymap('n', 'sj', '<C-w>j', term_opts)
+keymap('n', 'sl', '<C-w>l', term_opts)
 
 -- Tab
-nmap <leader>t :tabnew<CR>
+keymap('n', '<leader>t', ':tabnew<CR>', opts)
 
 -- Indentation
-vmap < <gv
-vmap > >gv
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
 
 -- Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+keymap('v', 'J', ":m '>+1<CR>gv=gv", opts)
+keymap('v', 'K', ":m '<-2<CR>gv=gv", opts)
 
 -- Copy relative path of the current Buffer
-nmap <leader>cp :let @*=expand("%")<CR>
+keymap('n', '<leader>cp', ':let @*=expand("%")<CR>', opts)
 
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+keymap('n', '<Up>', '<NOP>', opts)
+keymap('n', '<Down>', '<NOP>', opts)
+keymap('n', '<Left>', '<NOP>', opts)
+keymap('n', '<Right>', '<NOP>', opts)
 
 -- Search for selected text, forwards or backwards.
-vnoremap <silent> * :<C-U>
+keymap('v', '*', [[:<C-U>
   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
   \gvy/<C-R><C-R>=substitute(
   \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-vnoremap <silent> # :<C-U>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>]]
+  , { expr = true, noremap = true, silent = true })
+keymap('v', '#', [[:<C-U>
   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
   \gvy?<C-R><C-R>=substitute(
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>]],
+  { expr = true, noremap = true, silent = true }
+)
