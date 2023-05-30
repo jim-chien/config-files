@@ -34,6 +34,7 @@ vim.cmd [[set listchars=tab:›\ ,space:·]]
 vim.opt.path:append { '**' } -- Finding files - Search down into subfolders
 vim.opt.wildmode = { 'list:longest', 'list:full' }
 vim.opt.wildignore:append { '*/node_modules/*', '*coverage/', '*.o', '*.obj', '.git', '*.rbc', '*.pyc', '__pycache__', '*/tmp/*', '*.so', '*.swp', '*.zip', '*.db', '*.sqlite', '.DS_Store' }
+vim.cmd[[colorscheme palenight]]
 
 -- Use terminal background
 vim.cmd('highlight Normal guibg=none guifg=none')
