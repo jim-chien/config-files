@@ -71,8 +71,6 @@ ZSH_THEME="zhann"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git asdf zsh-autosuggestions tmux)
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_DEFAULT_SESSION_NAME=dev
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,11 +98,13 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 alias zshconfig="vim ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
+alias config='/usr/bin/git --git-dir=/Users/jimchien/.config/ --work-tree=/Users/jimchien'
 alias find_port_pid="lsof -n -i "
 alias kill_pid="kill -9 "
 alias vim="nvim"
 alias vi="nvim"
 
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
