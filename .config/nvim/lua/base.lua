@@ -41,3 +41,4 @@ vim.cmd('highlight Normal guibg=none guifg=none')
 
 -- Add asterisks in block comments
 vim.opt.formatoptions:append { 'r' }
+vim.wo.signcolumn = 'yes'
