@@ -99,12 +99,17 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 alias zshconfig="vim ~/.zshrc"
 alias config='/usr/bin/git --git-dir=/Users/jimchien/.config/ --work-tree=/Users/jimchien'
+alias alaconfig="vim ~/.config/alacritty/alacritty.yml"
+alias vimconfig="vim ~/.config/nvim/lua/base.lua"
+alias packerconfig="vim ~/.config/nvim/lua/plugins.lua"
+
 alias find_port_pid="lsof -n -i "
 alias kill_pid="kill -9 "
 alias vim="nvim"
-alias vi="nvim"
+alias vi="vim"
 
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+export RIPGREP_CONFIG_PATH="$HOME/.config/.ripgreprc"
