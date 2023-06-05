@@ -1,7 +1,18 @@
 local status, tree = pcall(require, 'nvim-tree')
 if (not status) then return end
 
+local api = require('nvim-tree.api')
+
+local function on_attach(bufnr)
+  -- use all default mappings
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- remove a default
+  vim.keymap.del('n', 's', { buffer = bufnr })
+end
+
 tree.setup {
+  on_attach = on_attach,
   disable_netrw = true,
   hijack_netrw = true,
   update_cwd = true,
