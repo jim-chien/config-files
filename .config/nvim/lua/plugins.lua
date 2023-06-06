@@ -31,7 +31,9 @@ packer.startup(function(use)
   use 'airblade/vim-gitgutter'
   use 'tpope/vim-fugitive'
   -- Code LSP, Autocompletion, etc
-  use 'williamboman/mason.nvim'
+  use { 'williamboman/mason.nvim', run = function()
+    pcall(vim.cmd, 'MasonUpdate')
+  end, }
   use 'williamboman/mason-lspconfig.nvim'
   use 'neovim/nvim-lspconfig'    -- Collection of configurations for built-in LSP client
   use 'hrsh7th/nvim-cmp'         -- Autocompletion plugin
