@@ -83,10 +83,12 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   }),
-  sources = {
+  sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
+    { name = 'luasnip' },   -- For luasnip users.
+  }, {
+    { name = 'buffer' },
+  })
 }
 
 vim.cmd [[
