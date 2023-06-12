@@ -31,10 +31,25 @@ packer.startup(function(use)
   use 'airblade/vim-gitgutter'
   use 'tpope/vim-fugitive'
   -- Code LSP, Autocompletion, etc
-  use { 'williamboman/mason.nvim', run = function()
-    pcall(vim.cmd, 'MasonUpdate')
-  end, }
-  use 'williamboman/mason-lspconfig.nvim'
+  use {
+    'williamboman/mason.nvim',
+    requires = { 'williamboman/mason-lspconfig.nvim' },
+    run = function()
+      pcall(vim.cmd, 'MasonUpdate')
+    end,
+    config = function()
+      -- Setup language servers.
+      local mason_status, mason = pcall(require, "mason")
+      if (not mason_status) then return end
+      local mason_lsp_status, mason_lspconfig = pcall(require, "mason-lspconfig")
+      if (not mason_lsp_status) then return end
+
+      mason.setup({})
+
+      mason_lspconfig.setup {
+        ensure_installed = { "lua_ls", "tsserver", "pyright" }
+      }
+    end }
   use 'neovim/nvim-lspconfig'    -- Collection of configurations for built-in LSP client
   use 'hrsh7th/nvim-cmp'         -- Autocompletion plugin
   use 'hrsh7th/cmp-nvim-lsp'     -- LSP source for nvim-cmp
