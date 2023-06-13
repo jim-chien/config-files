@@ -49,6 +49,8 @@ keymap('n', '<leader>t', ':tabnew<CR>', opts)
 -- Indentation
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
+keymap("n", "<", "<<", opts)
+keymap("n", ">", ">>", opts)
 
 -- Move visual block
 keymap('v', 'J', ":m '>+1<CR>gv=gv", opts)
@@ -68,7 +70,7 @@ keymap('v', '*', [[:<C-U>
   \gvy/<C-R><C-R>=substitute(
   \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>]]
-  , { expr = true, noremap = true, silent = true })
+, { expr = true, noremap = true, silent = true })
 keymap('v', '#', [[:<C-U>
   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
   \gvy?<C-R><C-R>=substitute(
