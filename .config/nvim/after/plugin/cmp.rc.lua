@@ -75,10 +75,10 @@ cmp.setup {
         cmp.select_next_item()
         -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
         -- they way you will only jump inside the snippet region
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
       else
         fallback()
       end
@@ -95,7 +95,12 @@ cmp.setup {
     end, { "i", "s" }),
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
+    {
+      name = 'nvim_lsp',
+      entry_filter = function(entry)
+        return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind()
+      end
+    },
     { name = 'luasnip' }, -- For luasnip users.
   }, {
     { name = 'buffer' },
