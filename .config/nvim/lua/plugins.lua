@@ -54,7 +54,10 @@ packer.startup(function(use)
   use 'hrsh7th/nvim-cmp'         -- Autocompletion plugin
   use 'hrsh7th/cmp-nvim-lsp'     -- LSP source for nvim-cmp
   use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-  use 'L3MON4D3/LuaSnip'         -- Snippets plugin
+  use {
+    "L3MON4D3/LuaSnip",
+    requires = { "rafamadriz/friendly-snippets" },
+  } -- Snippets plugin
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
@@ -64,4 +67,5 @@ packer.startup(function(use)
   use 'lukas-reineke/indent-blankline.nvim'
   use 'jose-elias-alvarez/null-ls.nvim'
   use 'glepnir/lspsaga.nvim'
+  use 'github/copilot.vim'
 end)

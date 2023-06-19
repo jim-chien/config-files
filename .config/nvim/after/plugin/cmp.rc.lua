@@ -102,7 +102,6 @@ cmp.setup {
       end
     },
     { name = 'luasnip' }, -- For luasnip users.
-  }, {
     { name = 'buffer' },
   })
 }
