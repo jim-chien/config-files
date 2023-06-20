@@ -22,11 +22,12 @@ packer.startup(function(use)
   use 'nvim-lualine/lualine.nvim'
   use 'folke/tokyonight.nvim'
   use 'tpope/vim-commentary'
-  use 'nvim-lua/plenary.nvim'        -- Common utilities
-  use 'kyazdani42/nvim-web-devicons' -- File icons
+  use 'nvim-lua/plenary.nvim' -- Common utilities
   use 'nvim-telescope/telescope.nvim'
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use { 'mg979/vim-visual-multi', branch = 'master' }
   use 'nvim-tree/nvim-tree.lua'
+  use { 'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons' }
   -- Git
   use 'airblade/vim-gitgutter'
   use 'tpope/vim-fugitive'
