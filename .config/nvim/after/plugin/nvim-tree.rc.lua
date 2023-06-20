@@ -29,7 +29,7 @@ tree.setup {
       enable = true,
     }
   },
-  filters = { custom = { ".DS_Store" } }
+  filters = { custom = { ".DS_Store", ".git" } }
 }
 
 vim.g.nvim_tree_respect_buf_cwd = 1
