@@ -59,10 +59,9 @@ keymap('v', 'K', ":m '<-2<CR>gv=gv", opts)
 -- Copy relative path of the current Buffer
 keymap('n', '<leader>cp', ':let @*=expand("%")<CR>', opts)
 
-keymap('n', '<Up>', '<NOP>', opts)
-keymap('n', '<Down>', '<NOP>', opts)
-keymap('n', '<Left>', '<NOP>', opts)
-keymap('n', '<Right>', '<NOP>', opts)
+-- Jump long lines with j and k
+keymap('n', 'j', 'gj', opts)
+keymap('n', 'k', 'gk', opts)
 
 -- Search for selected text, forwards or backwards.
 keymap('v', '*', [[:<C-U>
