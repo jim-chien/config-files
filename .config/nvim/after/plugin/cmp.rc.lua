@@ -67,16 +67,11 @@ cmp.setup {
     -- C-b (back) C-f (forward) for snippet placeholder navigation.
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-        -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-        -- they way you will only jump inside the snippet region
-      elseif has_words_before() then
-        cmp.complete()
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       else
