@@ -61,7 +61,13 @@ packer.startup(function(use)
   } -- Snippets plugin
   use {
     'nvim-treesitter/nvim-treesitter',
-    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+    requires = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
+    run = function()
+      require('nvim-treesitter.install').update({ with_sync = true })
+      pcall(vim.cmd, 'TSUpdate')
+    end,
   }
   use 'windwp/nvim-autopairs'
   use 'windwp/nvim-ts-autotag'
