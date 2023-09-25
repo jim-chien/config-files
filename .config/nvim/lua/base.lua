@@ -6,7 +6,7 @@ vim.opt.fileencoding = 'utf-8'
 
 vim.opt.autoindent = true
 vim.opt.hlsearch = true
-vim.opt.background= 'dark'
+vim.opt.background = 'dark'
 vim.g.mapleader = ';'
 vim.opt.clipboard:append { 'unnamedplus' }
 vim.opt.termguicolors = true
@@ -33,8 +33,9 @@ vim.opt.list = true
 vim.cmd [[set listchars=tab:›\ ,space:·]]
 vim.opt.path:append { '**' } -- Finding files - Search down into subfolders
 vim.opt.wildmode = { 'list:longest', 'list:full' }
-vim.opt.wildignore:append { '*/node_modules/*', '*coverage/', '*.o', '*.obj', '.git', '*.rbc', '*.pyc', '__pycache__', '*/tmp/*', '*.so', '*.swp', '*.zip', '*.db', '*.sqlite', '.DS_Store' }
-vim.cmd[[colorscheme tokyonight-moon]]
+vim.opt.wildignore:append { '*/node_modules/*', '*coverage/', '*.o', '*.obj', '.git', '*.rbc', '*.pyc', '__pycache__',
+  '*/tmp/*', '*.so', '*.swp', '*.zip', '*.db', '*.sqlite', '.DS_Store' }
+vim.cmd [[colorscheme tokyonight-moon]]
 
 -- Use terminal background
 vim.cmd('highlight Normal guibg=none guifg=none')
