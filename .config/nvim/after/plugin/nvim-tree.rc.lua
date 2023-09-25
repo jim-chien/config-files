@@ -8,20 +8,17 @@ local function on_attach(bufnr)
   api.config.mappings.default_on_attach(bufnr)
 
   -- remove a default
-  vim.keymap.del('n', 's', { buffer = bufnr })
+  vim.keymap.del('n', 's', { buffer = bufnr, noremap = true, silent = true, nowait = true })
 end
 
 tree.setup {
   on_attach = on_attach,
-  disable_netrw = true,
-  hijack_netrw = true,
-  update_cwd = true,
   update_focused_file = {
     enable = true,
     update_cwd = true,
   },
-  git = {
-    enable = false
+  diagnostics = {
+    enable = true,
   },
   renderer = {
     add_trailing = true,
@@ -29,7 +26,6 @@ tree.setup {
       enable = true,
     }
   },
-  filters = { custom = { ".DS_Store", ".git" } }
 }
 
 vim.g.nvim_tree_respect_buf_cwd = 1
