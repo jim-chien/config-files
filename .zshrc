@@ -113,3 +113,5 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 export RIPGREP_CONFIG_PATH="$HOME/.config/.ripgreprc"
+
+# rg '<find>'  --files-with-matches | xargs sed -i '' -e 's/<find>/<replace>/g'
