@@ -73,6 +73,9 @@ packer.startup(function(use)
   use 'windwp/nvim-ts-autotag'
   use 'lukas-reineke/indent-blankline.nvim'
   use 'jose-elias-alvarez/null-ls.nvim'
-  use 'glepnir/lspsaga.nvim'
+  use({
+    'nvimdev/lspsaga.nvim',
+    after = 'nvim-lspconfig'
+  })
   use 'github/copilot.vim'
 end)

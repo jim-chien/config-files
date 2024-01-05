@@ -1,7 +1,7 @@
 local status, saga = pcall(require, 'lspsaga')
 if (not status) then return end
 
-saga.setup()
+saga.setup({})
 
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', 'gl', '<Cmd>Lspsaga show_line_diagnostics<CR>', opts)
