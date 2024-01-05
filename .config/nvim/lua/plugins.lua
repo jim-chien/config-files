@@ -71,8 +71,8 @@ packer.startup(function(use)
   }
   use 'windwp/nvim-autopairs'
   use 'windwp/nvim-ts-autotag'
+  use 'nvimtools/none-ls.nvim'
   use 'lukas-reineke/indent-blankline.nvim'
-  use 'jose-elias-alvarez/null-ls.nvim'
   use({
     'nvimdev/lspsaga.nvim',
     after = 'nvim-lspconfig'
