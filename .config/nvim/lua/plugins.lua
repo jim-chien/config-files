@@ -1,35 +1,45 @@
-local status, packer = pcall(require, "packer")
-if not status then
-	print("Packer is not installed")
-	return
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
+vim.opt.rtp:prepend(lazypath)
 
-vim.cmd([[
-  packadd packer.nvim
-]])
-
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
-
-packer.startup(function(use)
-	use("wbthomason/packer.nvim")
+require("lazy").setup({
+	"wbthomason/packer.nvim",
 	-- Your plugins go here
 	-- Appearance
-	use("nvim-lualine/lualine.nvim")
-	use("folke/tokyonight.nvim")
-	use("tpope/vim-commentary")
-	use("nvim-lua/plenary.nvim") -- Common utilities
-	use("nvim-telescope/telescope.nvim")
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-	use({ "mg979/vim-visual-multi", branch = "master" })
-	use("nvim-tree/nvim-tree.lua")
-	use({ "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" })
+	{
+		"folke/tokyonight.nvim",
+		lazy = false, -- make sure we load this during startup if it is your main colorscheme
+		priority = 1000, -- make sure to load this before all the other start plugins
+		config = function()
+			-- load the colorscheme here
+			vim.cmd([[colorscheme tokyonight-moon]])
+			-- Use terminal background
+			vim.cmd("highlight Normal guibg=none guifg=none")
+		end,
+	},
+	"nvim-lualine/lualine.nvim",
+	"tpope/vim-commentary",
+	"nvim-lua/plenary.nvim", -- Common utilities
+	"nvim-telescope/telescope.nvim",
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	{ "mg979/vim-visual-multi", branch = "master" },
+	"nvim-tree/nvim-tree.lua",
+	{
+		"akinsho/bufferline.nvim",
+		version = "*",
+		dependencies = "nvim-tree/nvim-web-devicons",
+	},
 	-- Git
-	use({
+	{
 		"lewis6991/gitsigns.nvim",
 		config = function()
 			local status, gitsigns = pcall(require, "gitsigns")
@@ -38,13 +48,13 @@ packer.startup(function(use)
 			end
 			gitsigns.setup()
 		end,
-	})
-	use("tpope/vim-fugitive")
+	},
+	"tpope/vim-fugitive",
 	-- Code LSP, Autocompletion, etc
-	use({
+	{
 		"williamboman/mason.nvim",
-		requires = { "williamboman/mason-lspconfig.nvim" },
-		run = function()
+		dependencies = { "williamboman/mason-lspconfig.nvim" },
+		build = function()
 			pcall(vim.cmd, "MasonUpdate")
 		end,
 		config = function()
@@ -64,32 +74,28 @@ packer.startup(function(use)
 				ensure_installed = { "lua_ls", "tsserver", "pyright" },
 			})
 		end,
-	})
-	use("neovim/nvim-lspconfig") -- Collection of configurations for built-in LSP client
-	use("hrsh7th/nvim-cmp") -- Autocompletion plugin
-	use("hrsh7th/cmp-nvim-lsp") -- LSP source for nvim-cmp
-	use("saadparwaiz1/cmp_luasnip") -- Snippets source for nvim-cmp
-	use({
+	},
+	{ "neovim/nvim-lspconfig", dependencies = { "nvimdev/lspsaga.nvim" } }, -- Collection of configurations for built-in LSP client
+	"hrsh7th/nvim-cmp", -- Autocompletion plugin
+	"hrsh7th/cmp-nvim-lsp", -- LSP source for nvim-cmp
+	"saadparwaiz1/cmp_luasnip", -- Snippets source for nvim-cmp
+	{
 		"L3MON4D3/LuaSnip",
-		requires = { "rafamadriz/friendly-snippets" },
-	}) -- Snippets plugin
-	use({
+		dependencies = { "rafamadriz/friendly-snippets" },
+	}, -- Snippets plugin
+	{
 		"nvim-treesitter/nvim-treesitter",
-		requires = {
+		dependencies = {
 			"JoosepAlviste/nvim-ts-context-commentstring",
 		},
-		run = function()
+		build = function()
 			require("nvim-treesitter.install").update({ with_sync = true })
 			pcall(vim.cmd, "TSUpdate")
 		end,
-	})
-	use("windwp/nvim-autopairs")
-	use("windwp/nvim-ts-autotag")
-	use("nvimtools/none-ls.nvim")
-	use("lukas-reineke/indent-blankline.nvim")
-	use({
-		"nvimdev/lspsaga.nvim",
-		after = "nvim-lspconfig",
-	})
-	use("github/copilot.vim")
-end)
+	},
+	"windwp/nvim-autopairs",
+	"windwp/nvim-ts-autotag",
+	"nvimtools/none-ls.nvim",
+	"lukas-reineke/indent-blankline.nvim",
+	"github/copilot.vim",
+})
