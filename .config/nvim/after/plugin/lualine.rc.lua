@@ -1,34 +1,42 @@
 local status, lualine = pcall(require, "lualine")
-if (not status) then return end
+if not status then
+  return
+end
 
 lualine.setup({
   options = {
     icons_enabled = true,
+    globalstatus = true,
   },
   sections = {
-    lualine_a = { 'mode' },
-    lualine_b = { 'branch' },
-    lualine_c = { {
-      'filename',
-      file_status = true, -- displays file status (readonly status, modified status)
-      path = 0            -- 0 = just filename, 1 = relative path, 2 = absolute path
-    } },
+    lualine_a = { "mode" },
+    lualine_b = { "branch" },
+    lualine_c = {
+      "filename",
+    },
     lualine_x = {
       {
-        'diagnostics',
+        "diagnostics",
         sources = { "nvim_diagnostic" },
         symbols = {
-          error = ' ',
-          warn = ' ',
-          info = ' ',
-          hint = ' '
-        }
+          error = " ",
+          warn = " ",
+          info = " ",
+          hint = " ",
+        },
       },
-      'encoding',
-      'filetype'
+      "filetype",
     },
-    lualine_y = { 'progress' },
-    lualine_z = { 'location' }
+    lualine_y = { "progress" },
+    lualine_z = { "location" },
   },
-  extensions = { 'fugitive' }
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { "filename" },
+    lualine_x = { "location" },
+    lualine_y = {},
+    lualine_z = {},
+  },
+  extensions = { "fugitive" },
 })
