@@ -61,6 +61,16 @@ require("lazy").setup({
     end,
   },
   "tpope/vim-fugitive",
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      local status, colorizer = pcall(require, "colorizer")
+      if not status then
+        return
+      end
+      colorizer.setup()
+    end,
+  },
   -- Code LSP, Autocompletion, etc
   {
     "williamboman/mason.nvim",
@@ -107,6 +117,7 @@ require("lazy").setup({
   "windwp/nvim-autopairs",
   "windwp/nvim-ts-autotag",
   "nvimtools/none-ls.nvim",
+  "nvimtools/none-ls-extras.nvim",
   "lukas-reineke/indent-blankline.nvim",
   "github/copilot.vim",
 })
