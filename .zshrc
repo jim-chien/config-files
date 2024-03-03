@@ -106,6 +106,6 @@ alias find_port_pid="lsof -n -i "
 alias kill_pid="kill -9 "
 alias vim="nvim"
 alias vi="vim"
-rg '<find>'  --files-with-matches | xargs sed -i '' -e 's/<find>/<replace>/g'
+# rg '<find>'  --files-with-matches | xargs sed -i '' -e 's/<find>/<replace>/g'
 alias cpr='gh pr create -a @me'
 
