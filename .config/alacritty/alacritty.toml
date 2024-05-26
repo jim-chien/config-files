@@ -1,0 +1,78 @@
+# Configuration for Alacritty, the GPU enhanced terminal emulator.
+import = [
+"~/.config/alacritty/andromeda_dark.toml",
+"~/.config/alacritty/keybindings.toml"
+]
+
+# Live config reload (changes require restart)
+live_config_reload = true
+
+
+# Setup term for programs to be able to use it
+[env]
+  TERM = "alacritty"
+
+[window]
+  padding = { x = 4, y = 0 }
+
+  # Spread additional padding evenly around the terminal content.
+  dynamic_padding = true
+
+  # Startup Mode (changes require restart)
+  startup_mode = "Maximized"
+
+[scrolling]
+  # maximum number of lines in the scrollback buffer. Specifying '0' will
+  # disable scrolling.
+  history = 10000
+
+  # Number of lines the viewport will move for every line scrolled when
+  # scrollback is enabled (history > 0).
+  multiplier = 3
+
+    # Sample Font configuration for font: Menlo.
+# Feel free to use different font configuration family & face for each sections
+[font]
+  # Normal font face - Also used to draw glyphs on tmux & VIM
+  # NOTE: You may use any font you'd like but make sure the normal fonts
+  # support ligatures/glyphs. That's used by tmux & VIM to provide a better
+  # UI for powerline & tmux bottom bar.
+  normal = { family = "MesloLGS Nerd Font Mono", style = "Regular" }
+
+  # Bold font face
+  bold = { family = "MesloLGS Nerd Font Mono", style = "Bold" }
+
+  # Italic font face
+  italic = { family = "MesloLGS Nerd Font Mono", style = "Italic" }
+
+  # Bold italic font face
+  # Note: Since i don't have a font italic version of this font, I just specified
+  # italic & it just works. You may specifiy the bold italic version if it exists
+  # for your font
+  bold_italic = { family = "MesloLGS Nerd Font Mono", style = "Italic" }
+
+  # Font size
+  size = 14.0
+
+  # Offset is the extra space around each character. `offset.y` can be thought of
+  # as modifying the line spacing, and `offset.x` as modifying the letter spacing
+  # I've given in 14 spacing which fits really well with my fonts, you may change it
+  # to your convenience but make sure to adjust 'glyph_offset' appropriately post that
+  offset = { x = 0, y = 14 }
+
+  # Note: This requires RESTART
+  # By default when you change the offset above you'll see an issue, where the texts are bottom
+  # aligned with the cursor, this is to make sure they center align.
+  # This offset should usually be 1/2 of the above offset-y being set.
+  glyph_offset = { x = 0, y = 7 }
+    # Keeping this as half of offset to vertically align the text in cursor
+
+[selection]
+  semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+  # When set to `true`, selected text will be copied to the primary clipboard.
+  save_to_clipboard = true
+
+[mouse]
+  # If this is `true`, the cursor is temporarily hidden when typing.
+  hide_when_typing = false
