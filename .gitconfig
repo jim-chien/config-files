@@ -1,5 +1,5 @@
 [core]
-	editor = nvim
+	editor = lvim
 [alias]
 	cleanup = "!git branch --merged | egrep -v '(^\\*|master|main|dev)' | xargs git branch -d"
 [diff]
@@ -7,7 +7,7 @@
 [difftool]
 	prompt = false
 [difftool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+	cmd = lvim -d \"$LOCAL\" \"$REMOTE\"
 [merge]
 	tool = nvimdiff
 	conflictstyle = diff3
@@ -15,4 +15,4 @@
 	keepBackup = false
 	prompt = false
 [mergetool "nvimdiff"]
-	cmd = nvim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+	cmd = lvim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
