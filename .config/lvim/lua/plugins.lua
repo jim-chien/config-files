@@ -26,12 +26,6 @@ lvim.plugins = {
     end,
   },
   {
-    "tzachar/cmp-tabnine",
-    build = "./install.sh",
-    dependencies = "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-  },
-  {
     "Exafunction/codeium.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -43,17 +37,6 @@ lvim.plugins = {
         enable_chat = true
       })
     end
-  },
-  {
-    "zbirenbaum/copilot-cmp",
-    event = "InsertEnter",
-    dependencies = { "zbirenbaum/copilot.lua" },
-    config = function()
-      vim.defer_fn(function()
-        require("copilot").setup()     -- https://github.com/zbirenbaum/copilot.lua/blob/master/README.md#setup-and-configuration
-        require("copilot_cmp").setup() -- https://github.com/zbirenbaum/copilot-cmp/blob/master/README.md#configuration
-      end, 100)
-    end,
   },
   {
     "stevearc/dressing.nvim",
@@ -83,16 +66,72 @@ lvim.plugins = {
       })
     end
   },
+  {
+    "nvimtools/none-ls-extras.nvim",
+  }
 }
+lvim.lsp.null_ls.config = function()
+  -- enable eslint_d tracking for nvim is running
+  vim.env.ESLINT_D_PPID = vim.fn.getpid()
+  -- disable error when no eslint
+  vim.env.ESLINT_D_MISS = "ignore"
+end
+
+-- Helper to conditionally register eslint handlers only if eslint is
+-- config. If eslint is not configured for a project, it just fails.
+local function has_eslint_config(utils)
+  return utils.root_has_file({
+    ".eslintrc",
+    ".eslintrc.cjs",
+    ".eslintrc.js",
+    ".eslintrc.json",
+    "eslint.config.cjs",
+    "eslint.config.js",
+    "eslint.config.mjs",
+  })
+end
 
 -- setup formatting
 local formatters = require "lvim.lsp.null-ls.formatters"
-formatters.setup { { name = "prettierd" }, { name = "black" } }
+formatters.setup {
+  require("null-ls.builtins.formatting.prettierd"),
+  { name = "black", filetypes = { "python" } }
+}
 
 -- setup linting
 local linters = require "lvim.lsp.null-ls.linters"
-linters.setup { { name = "eslint_d" }, { name = "pylint" } }
+linters.setup {
+  require("none-ls.diagnostics.eslint_d").with({
+    condition = has_eslint_config,
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "vue",
+      "svelte",
+      "astro",
+      "html",
+    },
+  }),
+  { name = "pylint", filetypes = { "python" } }
+}
 
 -- setup code action
 local code_actions = require "lvim.lsp.null-ls.code_actions"
-code_actions.setup { { name = "eslint_d" } }
+code_actions.setup {
+  require("none-ls.code_actions.eslint_d").with({
+    condition = has_eslint_config,
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "vue",
+      "svelte",
+      "astro",
+      "html",
+    },
+  }),
+  { name = "proselint" }
+}
