@@ -68,7 +68,74 @@ lvim.plugins = {
   },
   {
     "nvimtools/none-ls-extras.nvim",
-  }
+  },
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    version = false, -- Never set this value to "*"! Never!
+    opts = {
+      -- add any opts here
+      -- for example
+      provider = "copilot"
+    },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    build = "make",
+    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below dependencies are optional,
+      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+      "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
+      "ibhagwan/fzf-lua",              -- for file_selector provider fzf
+      "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
+      {
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        config = function()
+          require("copilot").setup({})
+        end,
+      },
+      {
+        -- support for image pasting
+        "HakonHarnes/img-clip.nvim",
+        event = "VeryLazy",
+        opts = {
+          -- recommended settings
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+            -- required for Windows users
+            use_absolute_path = true,
+          },
+        },
+      },
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { "Avante" },
+        },
+        ft = { "Avante" },
+      },
+    },
+  },
+  {
+    "j-hui/fidget.nvim",
+    opts = {
+      notification = {
+        window = {
+          winblend = 0,
+        }
+      }
+    }
+  },
 }
 lvim.lsp.null_ls.config = function()
   -- enable eslint_d tracking for nvim is running
@@ -76,6 +143,43 @@ lvim.lsp.null_ls.config = function()
   -- disable error when no eslint
   vim.env.ESLINT_D_MISS = "ignore"
 end
+
+-- add `tsserver` to `skipped_servers` list
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tsserver", "tailwindcss" })
+-- remove `vtsls` from `skipped_servers` list
+-- lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+--   return server ~= "vtsls"
+-- end, lvim.lsp.automatic_configuration.skipped_servers)
+--
+
+local opts = {
+  root_markers = { "tsconfig.json", ".git" },
+  settings = {
+    vtsls = {
+      tsserver = {
+        globalPlugins = {
+          {
+            name = "@styled/typescript-styled-plugin",
+            location = "/Users/jimchien/.asdf/installs/nodejs/22.14.0/.npm/lib",
+            enableForWorkspaceTypeScriptVersions = true
+          }
+        }
+      },
+      -- Automatically use workspace version of TypeScript lib on startup.
+      autoUseWorkspaceTsdk = true,
+      enableMoveToFileCodeAction = true,
+      experimental = {
+        -- For completion performance.
+        completion = {
+          enableServerSideFuzzyMatch = true,
+          entriesLimit = 20,
+        },
+      },
+    }
+  },
+}
+
+require("lvim.lsp.manager").setup("vtsls", opts)
 
 -- Helper to conditionally register eslint handlers only if eslint is
 -- config. If eslint is not configured for a project, it just fails.
@@ -94,7 +198,10 @@ end
 -- setup formatting
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  require("null-ls.builtins.formatting.prettierd"),
+  require("null-ls.builtins.formatting.prettierd").with({
+    prefer_local = 'node_modules/.bin',
+
+  }),
   { name = "black", filetypes = { "python" } }
 }
 

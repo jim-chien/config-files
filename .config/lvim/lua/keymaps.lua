@@ -20,3 +20,14 @@ keymap('v', '<Del>', '"_x', opts)
 
 -- Prevent pasting in visual from overriding what's in the clipboard
 keymap('x', 'p', 'pgvy', opts)
+
+local telescope_builtin = require('telescope.builtin')
+lvim.lsp.buffer_mappings.normal_mode.gd = { telescope_builtin.lsp_definitions, "Goto definition" }
+lvim.lsp.buffer_mappings.normal_mode.gr = { telescope_builtin.lsp_references, "Goto references" }
+lvim.lsp.buffer_mappings.normal_mode.gI = { telescope_builtin.lsp_implementations, "Goto Implementation" }
+lvim.lsp.buffer_mappings.normal_mode['gt'] = { telescope_builtin.lsp_type_definitions, '[G]oto [T]ype Definition' }
+
+lvim.builtin.which_key.mappings.b.f = {
+  "<cmd>Telescope buffers<cr>",
+  "Find"
+}

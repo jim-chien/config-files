@@ -10,12 +10,9 @@ lvim.builtin.telescope.defaults.borderchars = { "─", "│", "─", "│", "╭
 lvim.builtin.telescope.pickers.find_files = {
   find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
 }
-lvim.builtin.which_key.mappings.b.f = {
-  "<cmd>Telescope buffers<cr>",
-  "Find"
-}
 lvim.builtin.nvimtree.setup.view.side = 'right'
 lvim.builtin.nvimtree.setup.view.adaptive_size = true
+vim.wo.relativenumber = true
 
 -- vim.list_extend(lvim.builtin.cmp.sources, {
 --   {
