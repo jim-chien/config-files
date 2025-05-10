@@ -36,12 +36,16 @@ return {
     --- @type blink.cmp.Config
     opts = {
       keymap = {
-        preset = 'super-tab',
+        preset = 'enter',
+        ['<Tab>'] = { 'select_next', 'fallback' },
+        ['<S-Tab>'] = { 'select_prev', 'fallback' },
+        ['<C-n>'] = { 'snippet_forward', 'fallback' },
+        ['<C-p>'] = { 'snippet_backward', 'fallback' },
       },
       completion = {
         menu = {
           draw = {
-            column = { { 'label', 'label_description', gap = 1 }, { 'kind_icon', 'kind' } },
+            columns = { { 'label', 'label_description', gap = 1 }, { 'kind_icon', 'kind' } },
             padding = { 0, 1 }, -- padding only on right side
             components = {
               kind_icon = {
@@ -51,6 +55,10 @@ return {
               },
             },
           },
+        },
+        list = {
+          selection = { preselect = false, auto_insert = true },
+          max_items = 10,
         },
         documentation = { auto_show = true, auto_show_delay_ms = 500 },
       },
