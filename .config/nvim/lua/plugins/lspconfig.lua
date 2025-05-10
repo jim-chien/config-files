@@ -1,4 +1,14 @@
 -- LSP Plugins
+local function is_neovim_v11()
+  if vim.fn.has 'nvim-0.11' == 1 then
+    return true
+  else
+    return false
+  end
+end
+
+local mason_installer_version = is_neovim_v11() and nil or '4aa03a08c3705e622f2e7886783fd450f7749cdd'
+
 return {
   {
     -- Main LSP Configuration
@@ -7,9 +17,9 @@ return {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'williamboman/mason.nvim', opts = {}, version = '^1.32.0' },
-      { 'williamboman/mason-lspconfig.nvim', version = '^1.32.0' },
-      { 'WhoIsSethDaniel/mason-tool-installer.nvim', commit = '4aa03a08c3705e622f2e7886783fd450f7749cdd' },
+      { 'williamboman/mason.nvim', version = 'v1.*', opts = {} },
+      { 'williamboman/mason-lspconfig.nvim', version = 'v1.*' },
+      { 'WhoIsSethDaniel/mason-tool-installer.nvim', commit = mason_installer_version },
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {
@@ -66,6 +76,9 @@ return {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
+          map('K', vim.lsp.buf.hover, 'Show hover')
+          map('gl', vim.diagnostic.open_float, 'Show line diagnostics')
+
           -- Rename tne variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
           map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
@@ -109,7 +122,7 @@ return {
           ---@param bufnr? integer some lsp support methods only in specific files
           ---@return boolean
           local function client_supports_method(client, method, bufnr)
-            if vim.fn.has 'nvim-0.11' == 1 then
+            if is_neovim_v11() then
               return client:supports_method(method, bufnr)
             else
               return client.supports_method(method, { bufnr = bufnr })
@@ -225,24 +238,35 @@ return {
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-        automatic_installation = false,
-        handlers = {
-          function(server_name)
-            -- neovim 0.11.0
-            -- local config = servers[server_name] or {}
-            --            vim.lsp.config(server_name, config)
-            --            vim.lsp.enable(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
+      -- Handle lsp setups differently based on Neovim version
+      -- See :help vim.lsp.config and :help vim.lsp.enable for Neovim 0.11+
+      if is_neovim_v11() then
+        print 'v11 lsp setup'
+        for server, config in pairs(servers) do
+          -- This handles overriding only values explicitly passed
+          -- by the server configuration above. Useful when disabling
+          -- certain features of an LSP (for example, turning off formatting for ts_ls)
+          config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
+          vim.lsp.config(server, config)
+          vim.lsp.enable(server)
+        end
+      else
+        -- For Neovim 0.10 and below, use mason-lspconfig for setup
+        require('mason-lspconfig').setup {
+          ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+          automatic_installation = false,
+          handlers = {
+            function(server_name)
+              local server = servers[server_name] or {}
+              -- This handles overriding only values explicitly passed
+              -- by the server configuration above. Useful when disabling
+              -- certain features of an LSP (for example, turning off formatting for ts_ls)
+              server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+              require('lspconfig')[server_name].setup(server)
+            end,
+          },
+        }
+      end
     end,
   },
 }
