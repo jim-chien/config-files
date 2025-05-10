@@ -1,5 +1,8 @@
 [core]
 	editor = nvim
+[user]
+	name = Jim Chien
+	email = 47145412+jim-chien@users.noreply.github.com
 [alias]
 	cleanup = "!git branch --merged | egrep -v '(^\\*|master|main|dev)' | xargs git branch -d"
 [diff]
