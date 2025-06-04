@@ -76,7 +76,9 @@ return {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          map('K', vim.lsp.buf.hover, 'Show hover')
+          map('K', function()
+            vim.lsp.buf.hover { border = 'bold' }
+          end, 'Show hover')
           map('gl', vim.diagnostic.open_float, 'Show line diagnostics')
 
           -- Rename tne variable under your cursor.
