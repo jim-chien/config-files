@@ -7,14 +7,14 @@ return {
       {
         '<leader>lf',
         function()
-          require('conform').format { async = true, lsp_format = 'fallback' }
+          require('conform').format { async = true }
         end,
         mode = '',
         desc = '[F]ormat buffer',
       },
     },
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
@@ -24,8 +24,7 @@ return {
           return nil
         else
           return {
-            timeout_ms = 500,
-            lsp_format = 'fallback',
+            timeout_ms = 1000,
           }
         end
       end,
@@ -35,7 +34,10 @@ return {
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { "prettierd" },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },

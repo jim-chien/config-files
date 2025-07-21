@@ -1,21 +1,20 @@
 [core]
 	editor = nvim
+  pager = delta
 [user]
 	name = Jim Chien
 	email = 47145412+jim-chien@users.noreply.github.com
 [alias]
 	cleanup = "!git branch --merged | egrep -v '(^\\*|master|main|dev)' | xargs git branch -d"
-[diff]
-  tool = nvimdiff
-[difftool]
-	prompt = false
-[difftool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true  # use n and N to move between diff sections
+  dark = true
 [merge]
-	tool = nvimdiff
-	conflictstyle = diff3
-[mergetool]
-	keepBackup = false
-	prompt = false
-[mergetool "nvimdiff"]
-	cmd = nvim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+    conflictstyle = zdiff3
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
