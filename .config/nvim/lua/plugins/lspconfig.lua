@@ -1,14 +1,3 @@
--- LSP Plugins
-local function is_neovim_v11()
-  if vim.fn.has 'nvim-0.11' == 1 then
-    return true
-  else
-    return false
-  end
-end
-
-local mason_installer_version = is_neovim_v11() and nil or '4aa03a08c3705e622f2e7886783fd450f7749cdd'
-
 return {
   {
     -- Main LSP Configuration
@@ -19,7 +8,7 @@ return {
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
       { 'williamboman/mason.nvim', version = 'v1.*', opts = {} },
       { 'williamboman/mason-lspconfig.nvim', version = 'v1.*' },
-      { 'WhoIsSethDaniel/mason-tool-installer.nvim', commit = mason_installer_version },
+      { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {
@@ -124,11 +113,7 @@ return {
           ---@param bufnr? integer some lsp support methods only in specific files
           ---@return boolean
           local function client_supports_method(client, method, bufnr)
-            if is_neovim_v11() then
-              return client:supports_method(method, bufnr)
-            else
-              return client.supports_method(method, { bufnr = bufnr })
-            end
+            return client:supports_method(method, bufnr)
           end
 
           -- The following two autocommands are used to highlight references of the
@@ -230,6 +215,7 @@ return {
         vtsls = {},
 
         lua_ls = {},
+        basedpyright = {},
       }
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
@@ -237,37 +223,19 @@ return {
         'stylua', -- Used to format Lua code
         'eslint_d',
         'prettierd',
+        'basedpyright',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       -- Handle lsp setups differently based on Neovim version
       -- See :help vim.lsp.config and :help vim.lsp.enable for Neovim 0.11+
-      if is_neovim_v11() then
-        print 'v11 lsp setup'
-        for server, config in pairs(servers) do
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for ts_ls)
-          config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
-          vim.lsp.config(server, config)
-          vim.lsp.enable(server)
-        end
-      else
-        -- For Neovim 0.10 and below, use mason-lspconfig for setup
-        require('mason-lspconfig').setup {
-          ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-          automatic_installation = false,
-          handlers = {
-            function(server_name)
-              local server = servers[server_name] or {}
-              -- This handles overriding only values explicitly passed
-              -- by the server configuration above. Useful when disabling
-              -- certain features of an LSP (for example, turning off formatting for ts_ls)
-              server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-              require('lspconfig')[server_name].setup(server)
-            end,
-          },
-        }
+      for server, config in pairs(servers) do
+        -- This handles overriding only values explicitly passed
+        -- by the server configuration above. Useful when disabling
+        -- certain features of an LSP (for example, turning off formatting for ts_ls)
+        config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
+        vim.lsp.config(server, config)
+        vim.lsp.enable(server)
       end
     end,
   },
