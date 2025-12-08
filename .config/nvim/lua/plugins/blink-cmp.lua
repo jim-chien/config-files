@@ -73,7 +73,7 @@ return {
       },
 
       snippets = { preset = 'luasnip' },
-      fuzzy = { implementation = 'prefer_rust_with_warning' },
+      fuzzy = { implementation = 'lua' },
       signature = { enabled = true },
     },
   },
